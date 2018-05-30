@@ -24,7 +24,9 @@ server <- function(input, output) {
     
     relevant_data <- data.frame("Year" = years, "Deaths" = deaths, 
                                 "Migrations" = migs)
+    relevant_data
   })
+  
   output$plot <- renderPlotly({
     p <- plot_ly(data = relevant_data(),
               x = ~Year,
@@ -42,6 +44,39 @@ server <- function(input, output) {
         xaxis = list(title = "Year", rangeslider = list(type = "date")),
         yaxis = list(title = "Number of People"))
     p
+  })
+  
+  output$description <- renderText({
+    data <- relevant_data()
+    r <- round(cor(data$Deaths, data$Migrations), 4)
+    str <- paste0("The correlation coefficient between Deaths and Migrations ",
+                  "for <em>", input$region, "</em> is <b>", r, "</b>.")
+    if (r > 0.5) {
+      str <- paste0(str, " This implies that there is a <b>decently strong</b>",
+                    " positive linear relationship between Deaths and",
+                    " Migrations for this region. That is, as deaths grow, so",
+                    " do migrations to the area.")
+    } else if (r < -0.5) {
+      str <- paste0(str, " This implies that there is a <b>decently strong</b>",
+                    " negative linear relationship between Deaths and", 
+                    " Migrations for this region. That is, as deaths grow,",
+                    " Migrations to that area decrease."
+                    )
+    } else{
+      str <- paste0(str, " This implies that there is a <b>very weak</b>", 
+                    " correlation between Deaths and Migrations for this", 
+                    " region. Deaths do not affect Migrations for this area.")
+    }
+    str
+  })
+  
+  output$goal <- renderText({
+    str <- paste0("The goal of this visualization is to find if migrations",
+                  " to/from an area are affected by or effect deaths for that",
+                  " area. For example, if illegal migration to an area brings",
+                  " a higher death rate to that area. Data is sourced from ",
+                  " <a href='https://www.census.gov/data/datasets/2017/demo/popest/total-metro-and-micro-statistical-areas.html'>here</a>",
+                  " <hr>")
   })
 }
 

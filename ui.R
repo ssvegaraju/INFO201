@@ -14,7 +14,9 @@ ui <- fluidPage(
                            selectInput("region", "Region:",
                                        unique(csa_data$NAME))
                          ),
-                         mainPanel(plotlyOutput("plot"))
+                         mainPanel(htmlOutput("goal"),
+                                   plotlyOutput("plot"),
+                                   htmlOutput("description"))
                        )))
 )
 
