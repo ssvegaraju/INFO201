@@ -1,15 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans');
 
-
-
-
 body {
-   background: #00c9ff; /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #00c9ff, #92fe9d); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #00c9ff, #92fe9d); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  
-  font-family: 'Noto Sans', sans-serif;
-
+    background: #00c9ff; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #00c9ff, #92fe9d); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #00c9ff, #92fe9d); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, `       Opera 12+, Safari 7+ */
+    font-family: 'Noto Sans', sans-serif;
 }
 
 .row {
@@ -20,7 +15,6 @@ a{
   color: #fff;
   font-size: 1.44em;
 }
-
 
 h2 {
   animation: bounce 2s ease infinite;
@@ -40,3 +34,6 @@ h2 {
   padding: 20px;
 }
 
+strong {
+  width: 500px;
+}
