@@ -1,29 +1,16 @@
 library(dplyr)
-<<<<<<< HEAD
-=======
 library(ggplot2)
 library(plotly)
->>>>>>> d27fd3740c28b6173e00692259fe75661245c7e4
 library(shiny)
-
+library(DT)
 source("analysis.R")
+
 csa_data <- read.csv("csa-est2017-alldata.csv", stringsAsFactors = F)
 
-<<<<<<< HEAD
-server <- function(input, output) {
-  output$Birthrate_difference = renderDataTable({
-    new_data_set
-    
-  })
-  output$Background_Info = renderText({
-    "This table shows the difference in birth rates in U.S. counties that increased from 2015 to 2017.
-    The Percentage of U.S. counties that had an increase in birth rate from 2015 to 2017 is 36.867%"
-=======
 cols_of_interest <- c("DEATHS2010", "DEATHS2011", "DEATHS2012", "DEATHS2013",
                       "DEATHS2014", "DEATHS2015", "DEATHS2016", "DEATHS2017",
                       "NETMIG2010", "NETMIG2011", "NETMIG2012", "NETMIG2013",
                       "NETMIG2014", "NETMIG2015", "NETMIG2016", "NETMIG2017")
-
 server <- function(input, output) {
   relevant_data <- reactive({
     relevant_data <- csa_data %>%
@@ -139,9 +126,18 @@ server <- function(input, output) {
         starter_sentence <- paste0(starter_sentence, " There is just a weak correlation between both state")
       }
     } else {
-      "Choose two diffrent states"
+      "Choose two different states"
     }
->>>>>>> d27fd3740c28b6173e00692259fe75661245c7e4
+    
+  })
+  
+  output$birthrate_difference <- renderDataTable({
+    new_data_set
+  })
+  
+  output$background_Info <- renderText({
+      "This table shows the difference in birth rates in U.S. counties that increased from 2015 to 2017.
+    The Percentage of U.S. counties that had an increase in birth rate from 2015 to 2017 is 36.867%"
   })
 }
 

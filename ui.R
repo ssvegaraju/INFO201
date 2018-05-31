@@ -1,16 +1,11 @@
 library(dplyr)
 library(shiny)
-
-csa_data <- read.csv("csa-est2017-alldata.csv", stringsAsFactors = F)
+library(ggplot2)
+library(plotly)
+library(DT)
 source("analysis.R")
 
-
-ui <- fluidPage(
-  theme = "style.css",
-  mainPanel(textOutput("Background_Info"), dataTableOutput("Birthrate_difference")
-      
-    )
-  )
+csa_data <- read.csv("csa-est2017-alldata.csv", stringsAsFactors = F)
 
 states <- state.abb[state.abb != 'AK' & state.abb != 'WY' & state.abb != 'HI' &
                       state.abb != 'VT' 
@@ -29,23 +24,30 @@ ui <- fluidPage(
                                    plotlyOutput("plot_migration"),
                                    htmlOutput("description"))
                        )),
-              tabPanel("Brith_Diff", mainPanel(textOutput("Background_Info"), dataTableOutput("Birthrate_difference"))
+              tabPanel("Birthrate Difference", 
+                       titlePanel("Difference between Birthrates"),
+                       
+                       mainPanel(
+                         textOutput("background_Info"), 
+                         dataTableOutput("birthrate_difference"))),
               tabPanel("Deaths Between Two States",
                        titlePanel("Choose two states"),
-                       p("This plot shows the correlation of deaths between two states in the United States.
-    "),
+                       p("This plot shows the correlation of deaths between two states in the United States."),
                        
                        sidebarLayout(
+                         sidebarPanel(
                          selectInput("first_state", "First State", states),
                          selectInput("second_state", "Second State", states)
-                       ),
+                        ),
                        
                        mainPanel(
                          plotlyOutput("plot"),
                          htmlOutput("plot_description")
-                         
-                         
-                       )))
+                         )
+                      
+                       )
+                      )
+              )
 )
 
 

@@ -1,34 +1,3 @@
-<<<<<<< HEAD
-all_data <- read.csv("csa-est2017-alldata.csv", stringsAsFactors = FALSE)
-
-View(all_data)
-
-library(dplyr)
-
-#Birthrate difference from 2015-2017
-all_data$birth_rate_diff <- (all_data$BIRTHS2017 - all_data$BIRTHS2015)
-
-View(all_data$birth_rate_diff)
-
-print(all_data$birth_rate_diff)
-
-all_data$positive_diff <- (all_data$birth_rate_diff > 0)
-
-View(all_data)
-
-increase_births <- filter(all_data, birth_rate_diff > 0)
-
-new_data_set <- select(increase_births, NAME, LSAD, birth_rate_diff)
-
-View(new_data_set)
-
-total_increase <- sum(new_data_set$birth_rate_diff > 0)
-
-total_data <- sum(all_data$birth_rate_diff > -100000)
-
-total_increase / total_data
-
-=======
 library(dplyr)
 library(ggplot2)
 library(shiny)
@@ -36,8 +5,29 @@ library(reshape2)
 
 all_data <- read.csv("csa-est2017-alldata.csv", stringsAsFactors = FALSE)
 
-# Did the deaths in Washington state affect deaths in Maine?
-# adding traces and adding them to the same plot
+# View(all_data)
+
+#Birthrate difference from 2015-2017
+all_data$birth_rate_diff <- (all_data$BIRTHS2017 - all_data$BIRTHS2015)
+
+# View(all_data$birth_rate_diff)
+# print(all_data$birth_rate_diff)
+
+all_data$positive_diff <- (all_data$birth_rate_diff > 0)
+
+# View(all_data)
+
+increase_births <- filter(all_data, birth_rate_diff > 0)
+
+new_data_set <- select(increase_births, NAME, LSAD, birth_rate_diff)
+
+# View(new_data_set)
+
+total_increase <- sum(new_data_set$birth_rate_diff > 0)
+
+total_data <- sum(all_data$birth_rate_diff > -100000)
+
+total_increase / total_data
 
 # function takes a state as an argument
 # finds death columns for that state
@@ -51,6 +41,7 @@ get_death_columns_state <- function(state) {
     DEATHS2010, DEATHS2011, DEATHS2012, DEATHS2013, DEATHS2014, DEATHS2015,
     DEATHS2016, DEATHS2017
   )
+  death
 }
 
 # Washington data
@@ -60,6 +51,7 @@ washington_data <- get_death_columns_state("WA")
 # in this case the first state
 get_first_state <- function(first_state) {
   my_state <- get_death_columns_state(first_state)
+  my_state
 }
 
 # first state call
@@ -120,7 +112,7 @@ get_summarize_death_totals_two_states <- function(state_one) {
     first_state_year2016_sum,
     first_state_year2017_sum
   )
-  
+  first_state_summed_up
 }
 
 # get's two state's information 
@@ -128,7 +120,6 @@ both_states_finally <- function(get_first, get_second) {
   first_first <- get_summarize_death_totals_two_states(get_first)
   second_second <- get_summarize_death_totals_two_states(get_second)
   both_states <- full_join(first_first, second_second)
-  state_name <- both_states[, 1]
   both_states <- both_states[, 2:ncol(both_states)]
   first_row <- both_states[1, ]
   second_row <- both_states[2, ]
@@ -142,26 +133,5 @@ both_states_finally <- function(get_first, get_second) {
   years <- seq(2010, 2017)
   
   final_frame <- data.frame("first_state" = first_row, "second_state" = second_row, "years" = years)
+  final_frame
 }
-
-bbbbb <- both_states_finally("OR", "FL")
-
-
-
-ggplot(data =  bbbbb) +
-  geom_point(mapping = aes(x = years, y = first_state)) +
-  geom_point(mapping = aes(x = years, y = second_state))
-
-
-# unlist
-
-# seperate the names from the values
-# set the values to null
-# then I unlist them
-
-
-
-
-# x will be year, facet by year
-# y amount of deaths by year
->>>>>>> d27fd3740c28b6173e00692259fe75661245c7e4
