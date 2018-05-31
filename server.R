@@ -2,7 +2,6 @@ library(dplyr)
 library(ggplot2)
 library(plotly)
 library(shiny)
-library(DT)
 source("analysis.R")
 
 csa_data <- read.csv("csa-est2017-alldata.csv", stringsAsFactors = F)
@@ -118,6 +117,11 @@ server <- function(input, output) {
         type = "scatter",
         mode = "lines+markers",
         name = input$second_state
+      )%>%
+      layout(
+        title = paste("Death rates for ", input$first_state, "and", input$second_state),
+        xaxis = list(title = "Year", rangeslider = list(type = "date")),
+        yaxis = list(title = "Number of People")
       )
   })
 
