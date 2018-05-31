@@ -1,9 +1,42 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans');
+
+
+
+
 body {
-  background: #A1CCA5;
-  padding: 20px;
+   background: #00c9ff; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #00c9ff, #92fe9d); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #00c9ff, #92fe9d); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+  font-family: 'Noto Sans', sans-serif;
+
 }
 
 .row {
   padding: 20px;
-  margin: 5px;
 }
+
+a{
+  color: #fff;
+  font-size: 1.44em;
+}
+
+
+h2 {
+  animation: bounce 2s ease infinite;
+}
+
+.tab-pane.active {
+    animation: slide-down 2s ease-out;
+}
+
+@keyframes slide-down {
+    0% { opacity: 0; transform: translateY(100%); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.shiny-html-output {
+  font-size: 1.2em;
+  padding: 20px;
+}
+
